@@ -6,12 +6,17 @@
 package galerie.entity;
 
 import java.time.LocalDate;
+import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,6 +48,27 @@ public class Exposition {
     @Column(unique = true)
     private int duree;
 
+    @ManyToOne
+    private Galerie organisateur;
+
     @OneToMany(mappedBy = "lieuDeVente")
     private List<Transaction> ventes;
+
+    @ManyToMany
+    @JoinTable(name = "expo_tableau",
+            joinColumns
+            = @JoinColumn(name = "exposition_id", referencedColumnName = "id"),
+            inverseJoinColumns
+            = @JoinColumn(name = "tableau_id", referencedColumnName = "id")
+    )
+    List<Tableau> oeuvres = new LinkedList<>();
+
+    public float CA() {
+        float calculCA = 0;
+        for (Transaction t : ventes) {
+            calculCA += t.getPrixVente();
+        }
+        return calculCA;
+    }
+
 }

@@ -38,7 +38,17 @@ public class Personne {
         this.nom = nom;
         this.adresse = adresse;
     }
-    
+
     @OneToMany(mappedBy = "client")
     private List<Transaction> achats;
+
+    public float BudgetArt(int annee) {
+        float calculBudget = 0;
+        for (Transaction t : achats) {
+            if (t.getVenduLe().getYear() == annee) {
+                calculBudget += t.getPrixVente();
+            }
+        }
+        return calculBudget;
+    }
 }
