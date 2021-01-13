@@ -41,11 +41,8 @@ public class Exposition {
     @NonNull
     private LocalDate debut;
 
-    @Column(unique = true)
-    @NonNull
     private String intitule;
 
-    @Column(unique = true)
     private int duree;
 
     @ManyToOne

@@ -28,11 +28,10 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(unique = true)
+    @Column
     @NonNull
     private LocalDate venduLe;
 
-    @Column(unique = true)
     private float prixVente;
     
     @ManyToOne
@@ -42,5 +41,5 @@ public class Transaction {
     private Personne client;
     
     @OneToOne(mappedBy = "vendu")
-    private List<Tableau> oeuvre;
+    private Tableau oeuvre;
 }

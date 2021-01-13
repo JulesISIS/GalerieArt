@@ -23,16 +23,14 @@ public class Galerie {
     @NonNull
     private String nom;
 
-    @Column(unique = true)
-    @NonNull
     private String adresse;
 
     @OneToMany(mappedBy = "organisateur")
-    private List<Exposition> évènements;
+    private List<Exposition> evenements;
 
     public float CAannuel(int annee) {
         float calculCAannuel = 0;
-        for (Exposition e : évènements) {
+        for (Exposition e : evenements) {
             if (e.getDebut().getYear() == annee && (e.getDebut().getDayOfYear() + e.getDuree() <= 365)) {
                 calculCAannuel += e.CA();
             }
